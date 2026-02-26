@@ -1,0 +1,19 @@
+Đã xong: git init, add, commit, branch main.
+
+BƯỚC CUỐI (bạn làm):
+
+1. Vào https://github.com/new
+   - Repository name: thiep-chuc-mung
+   - Public → Create repository (không tick Add README)
+
+2. Mở PowerShell hoặc CMD trong thư mục thiep-chuc-mung, chạy 2 lệnh sau
+   (thay USERNAME bằng tên GitHub của bạn, ví dụ: legion hoặc MinhAnh):
+
+   git remote add origin https://github.com/USERNAME/thiep-chuc-mung.git
+   git push -u origin main
+
+   (Lần đầu push có thể bị hỏi đăng nhập GitHub – đăng nhập theo hướng dẫn.)
+
+3. Vào repo → Settings → Pages → Deploy from a branch → main, / (root) → Save.
+
+4. Đợi 1–2 phút. Link thiệp: https://USERNAME.github.io/thiep-chuc-mung/
