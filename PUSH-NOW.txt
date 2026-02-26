@@ -16,4 +16,5 @@ BƯỚC CUỐI (bạn làm):
 
 3. Vào repo → Settings → Pages → Deploy from a branch → main, / (root) → Save.
 
-4. Đợi 1–2 phút. Link thiệp: https://USERNAME.github.io/thiep-chuc-mung/
+4. Đợi 1–2 phút. Link thiệp: https://buihonganhknight2901-lab.github.io/Birthday_MinhAnh/
+   (Nếu đổi tên repo thành thiep-chuc-mung thì link thành: https://buihonganhknight2901-lab.github.io/thiep-chuc-mung/)

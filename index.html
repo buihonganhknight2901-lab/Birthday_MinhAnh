@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Chúc mừng sinh nhật Minh Anh</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,6 +35,31 @@
     }
     body.cursor-custom {
       cursor: none;
+    }
+    .file-open-notice {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10002;
+      background: #1e40af;
+      color: #fff;
+      font-size: 0.85rem;
+      padding: 0.5rem 1rem;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    .file-open-notice.show {
+      display: block;
+    }
+    .file-open-notice a {
+      color: #93c5fd;
+      text-decoration: underline;
+      font-weight: 600;
+    }
+    .file-open-notice a:hover {
+      color: #fff;
     }
 
     .sky {
@@ -779,52 +804,6 @@
       color: rgba(255,255,255,0.95);
     }
 
-    /* Khối chia sẻ: QR + link */
-    .share-block {
-      margin-top: 1.5rem;
-      padding-top: 1.25rem;
-      border-top: 1px solid rgba(255,255,255,0.35);
-      text-align: center;
-    }
-    .share-label {
-      font-size: 0.8rem;
-      color: rgba(255,255,255,0.9);
-      letter-spacing: 0.08em;
-      margin-bottom: 0.6rem;
-    }
-    .share-qr-wrap {
-      display: inline-block;
-      padding: 8px;
-      background: #fff;
-      border-radius: 12px;
-      margin-bottom: 0.5rem;
-    }
-    .share-qr-wrap img {
-      display: block;
-      border-radius: 6px;
-    }
-    .share-url {
-      font-size: 0.75rem;
-      color: rgba(255,255,255,0.85);
-      word-break: break-all;
-      max-width: 280px;
-      margin: 0 auto 0.5rem;
-    }
-    .btn-copy-link {
-      padding: 0.4rem 0.9rem;
-      font-size: 0.78rem;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.7);
-      background: rgba(255,255,255,0.25);
-      color: #fff;
-      cursor: pointer;
-      transition: background 0.2s, color 0.2s;
-    }
-    .btn-copy-link:hover {
-      background: rgba(255,255,255,0.4);
-      color: #1e40af;
-    }
-
     /* Pop-up kết quả quà (sau pháo hoa) */
     .gift-popup {
       position: fixed;
@@ -914,34 +893,106 @@
     }
 
     @media (max-width: 720px) {
+      body {
+        padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+      }
       .flow-shell {
         border-radius: 0;
         height: 100vh;
-        padding: 1.25rem 1rem 1.5rem;
+        height: 100dvh;
+        min-height: -webkit-fill-available;
+        padding: max(1rem, env(safe-area-inset-top)) max(0.75rem, env(safe-area-inset-right)) max(1rem, env(safe-area-inset-bottom)) max(0.75rem, env(safe-area-inset-left));
+      }
+
+      .screen {
+        padding: 0.5rem 0.25rem 1rem;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
       }
 
       .screen-inner {
-        padding: 1.75rem 1.3rem 1.6rem;
+        padding: 1.25rem 1rem 1.4rem;
         border-radius: 18px;
+      }
+
+      .screen[data-screen="0"] .screen-inner-content {
+        padding: 1rem;
+      }
+      .hero-headline {
+        font-size: clamp(0.95rem, 4vw, 1.2rem);
+        letter-spacing: 0.2em;
+      }
+      .hero-text {
+        font-size: 0.9rem;
       }
 
       .message-grid {
         grid-template-columns: 1fr;
+        gap: 1.25rem;
+      }
+      .message-text .wish-title {
+        font-size: 1.35rem;
+      }
+      .message-text .subtitle {
+        font-size: 0.9rem;
       }
 
       .btn-row {
         flex-direction: column;
         align-items: stretch;
       }
-
       .btn-primary, .btn-secondary {
         justify-content: center;
         width: 100%;
+        min-height: 48px;
+        padding: 0.85rem 1.25rem;
+        font-size: 0.9rem;
       }
+      .final-cta-wrap .btn-primary {
+        min-height: 52px;
+        font-size: 0.95rem;
+      }
+
+      .reward-options {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+      }
+      .reward-option {
+        font-size: 0.7rem;
+        padding: 0.6rem 0.35rem;
+      }
+      .spin-result {
+        font-size: 0.85rem;
+        margin-top: 0.5rem;
+      }
+
+      .gift-popup-inner {
+        padding: 1.5rem 1.25rem;
+        max-width: 92%;
+      }
+      .gift-popup-result, .gift-popup-joke {
+        font-size: 0.95rem;
+      }
+
+      .file-open-notice {
+        font-size: 0.8rem;
+        padding: 0.5rem 0.75rem;
+      }
+      .file-open-notice a {
+        word-break: break-all;
+      }
+    }
+
+    @media (hover: none) and (pointer: coarse) {
+      .cursor-circle, .cursor-trail { display: none !important; }
     }
   </style>
 </head>
 <body>
+  <div class="file-open-notice" id="fileOpenNotice">
+    Bạn đang mở từ máy → link/QR sẽ không chia sẻ được. Để mở link là thấy thiệp (và QR hoạt động), hãy mở bằng:
+    <a href="https://buihonganhknight2901-lab.github.io/Birthday_MinhAnh/" target="_blank" rel="noopener">https://buihonganhknight2901-lab.github.io/Birthday_MinhAnh/</a>
+  </div>
   <div class="cursor-circle" id="cursorCircle" aria-hidden="true"></div>
   <div class="cursor-trail" id="cursorTrail"></div>
   <div class="sky"></div>
@@ -1059,14 +1110,6 @@
               </p>
             </div>
 
-            <div class="share-block final-reveal">
-              <p class="share-label">Chia sẻ thiệp · Quét QR hoặc dùng link</p>
-              <div class="share-qr-wrap">
-                <img id="qrImage" src="" alt="QR code link thiệp" width="120" height="120">
-              </div>
-              <p class="share-url" id="shareUrl"></p>
-              <button type="button" class="btn-copy-link" id="btnCopyLink">Copy link</button>
-            </div>
           </div>
         </div>
       </section>
@@ -1310,30 +1353,17 @@
 
     createStars(120);
 
-    // QR code + link chia sẻ (trỏ đúng URL trang khi deploy GitHub Pages)
-    (function initShareBlock() {
-      const qrImage = document.getElementById('qrImage');
-      const shareUrlEl = document.getElementById('shareUrl');
-      const btnCopyLink = document.getElementById('btnCopyLink');
-      const url = window.location.href;
-      if (qrImage) {
-        qrImage.src = 'https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=' + encodeURIComponent(url);
-      }
-      if (shareUrlEl) shareUrlEl.textContent = url;
-      if (btnCopyLink) {
-        btnCopyLink.addEventListener('click', () => {
-          navigator.clipboard.writeText(url).then(() => {
-            btnCopyLink.textContent = 'Đã copy!';
-            setTimeout(() => { btnCopyLink.textContent = 'Copy link'; }, 2000);
-          }).catch(() => { btnCopyLink.textContent = 'Mở: ' + url; });
-        });
-      }
+    // Khi mở từ file (file://) thì hiện dòng nhắc dùng link GitHub
+    (function checkFileOpen() {
+      const notice = document.getElementById('fileOpenNotice');
+      if (notice && window.location.protocol === 'file:') notice.classList.add('show');
     })();
 
-    // Custom cursor (circle + sparkle trail)
+    // Custom cursor (circle + sparkle trail) – chỉ trên desktop, ẩn trên điện thoại
     const cursorCircle = document.getElementById('cursorCircle');
     const cursorTrail = document.getElementById('cursorTrail');
-    if (cursorCircle && cursorTrail) {
+    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    if (cursorCircle && cursorTrail && !isTouch) {
       document.body.classList.add('cursor-custom');
       let mx = 0, my = 0;
       let trailQueue = [];
