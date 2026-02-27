@@ -6,31 +6,25 @@
   <title>Thiệp Thơ Vũ</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Space+Grotesk:wght@500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet" />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: "Inter", system-ui, sans-serif;
-      background:
-        radial-gradient(circle at 0% 0%, #bfdbfe, transparent 50%),
-        radial-gradient(circle at 100% 100%, #bbf7d0, #e0f2fe 70%);
+      background: linear-gradient(165deg, #ecfeff 0%, #d1fae5 40%, #e0f2fe 100%);
       color: #0f172a;
       min-height: 100vh;
       min-height: 100dvh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: env(safe-area-inset-top, 0) env(safe-area-inset-right, 0) env(safe-area-inset-bottom, 0) env(safe-area-inset-left, 0);
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
     }
 
     .card {
       width: 100%;
-      max-width: 100%;
-      height: 100%;
+      max-width: 380px;
+      margin: 0 auto;
       min-height: 100dvh;
-      padding: max(env(safe-area-inset-top), 1rem) max(env(safe-area-inset-right), 1rem) max(env(safe-area-inset-bottom), 1rem) max(env(safe-area-inset-left), 1rem);
-      background: linear-gradient(160deg, #f9fafb 0%, #ecfeff 50%, #e0f2fe 100%);
+      padding: 8px 12px 12px;
       position: relative;
       overflow: hidden;
     }
@@ -39,164 +33,198 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 1rem;
+      margin-bottom: 8px;
     }
-
-    .tag { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: #0369a1; }
+    .tag { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: #047857; }
     .play {
-      font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
-      border-radius: 999px; padding: 0.4rem 0.9rem;
-      border: 1px solid rgba(34, 197, 94, 0.6);
-      background: #ecfdf5; cursor: pointer; color: #047857;
-      display: inline-flex; align-items: center; gap: 0.35rem;
+      font-size: 0.65rem; letter-spacing: 0.05em;
+      border-radius: 999px; padding: 0.28rem 0.6rem;
+      border: 1px solid rgba(34, 197, 94, 0.5);
+      background: #ecfdf5; color: #047857; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 0.25rem;
     }
-    .play-dot { width: 8px; height: 8px; border-radius: 999px; background: #22c55e; }
+    .play-dot { width: 5px; height: 5px; border-radius: 999px; background: #22c55e; }
 
-    .screens {
+    .page {
       position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      padding: 4.5rem 0 1rem;
-    }
-
-    .screen {
-      position: absolute;
-      inset: 4.5rem 0 1rem 0;
-      left: 0; right: 0;
+      top: 0; left: 0; right: 0;
+      padding-top: 2.5rem;
+      padding-bottom: 8px;
+      min-height: 100%;
       opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.5s ease;
+      visibility: hidden;
+      transition: opacity 0.35s ease, visibility 0.35s ease;
       display: flex;
       flex-direction: column;
-      gap: 1rem;
-      overflow-y: auto;
+      gap: 0.6rem;
     }
-    .screen.active { opacity: 1; pointer-events: auto; }
+    .page.active { opacity: 1; visibility: visible; position: relative; }
 
-    .photo-wrap {
-      flex: 1;
-      min-height: 0;
-      display: flex;
-      flex-direction: column;
-      border-radius: 20px;
+    .page-photo {
+      border-radius: 14px;
       overflow: hidden;
-      border: 2px solid rgba(34, 197, 94, 0.5);
-      box-shadow: 0 16px 48px rgba(59, 130, 246, 0.25);
+      border: 1px solid rgba(34, 197, 94, 0.45);
+      box-shadow: 0 8px 24px rgba(59, 130, 246, 0.2);
+      flex-shrink: 0;
     }
-    .photo-wrap img {
+    .page-photo img {
       width: 100%;
       height: auto;
-      max-height: 55vh;
+      max-height: 42vh;
       object-fit: cover;
       display: block;
     }
-    .photo-wrap.main-wrap { border-color: rgba(59, 130, 246, 0.8); }
+    .page-photo.has-crown { position: relative; }
 
-    .story-text {
-      font-family: "Playfair Display", serif;
-      font-size: 1rem;
-      line-height: 1.65;
+    .page-quote {
+      font-family: "Space Grotesk", system-ui, sans-serif;
+      font-size: 0.88rem;
+      line-height: 1.6;
       text-align: center;
       color: #0369a1;
-      padding: 0 0.5rem;
+      padding: 0 4px;
+      font-weight: 500;
+      opacity: 0;
+      transition: opacity 0.5s ease;
     }
+    .page-quote.visible { opacity: 1; }
+    .page-quote p + p { margin-top: 0.35rem; }
 
-    .letter {
+    .letter-box {
       background: #f9fafb;
       color: #0f172a;
-      border-radius: 18px;
-      padding: 1.25rem 1.2rem;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      box-shadow: 0 14px 40px rgba(148, 163, 184, 0.3);
+      border-radius: 14px;
+      padding: 0.9rem 1rem;
+      border: 1px solid rgba(34, 197, 94, 0.35);
+      box-shadow: 0 6px 24px rgba(34, 197, 94, 0.15);
+      opacity: 0;
+      transition: opacity 0.5s ease;
     }
-    .letter-title { font-family: "Space Grotesk", sans-serif; font-size: 0.95rem; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.75rem; }
-    .letter-body { font-size: 0.95rem; line-height: 1.75; }
-    .letter-body p + p { margin-top: 0.75rem; }
+    .letter-box.visible { opacity: 1; }
+    .letter-box .letter-title {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+      color: #047857;
+    }
+    .letter-box .letter-body {
+      font-size: 0.82rem;
+      line-height: 1.75;
+    }
+    .letter-box .letter-body p + p { margin-top: 0.5rem; }
 
-    .footer { position: absolute; bottom: 0.5rem; left: 0; right: 0; font-size: 0.78rem; opacity: 0.85; text-align: center; color: #0369a1; }
+    .hint { font-size: 0.68rem; color: #6b7280; text-align: center; margin-top: 4px; }
   </style>
 </head>
 <body>
   <div class="card" id="card">
     <div class="header">
-      <div class="tag">16.02 · Thơ Vũ</div>
-      <button class="play" id="btnPlay"><span class="play-dot"></span><span>Cross Over</span></button>
+      <span class="tag">16.02 · Thơ Vũ</span>
+      <button type="button" class="play" id="btnPlay"><span class="play-dot"></span> Nhạc</button>
     </div>
 
-    <div class="screens">
-      <section class="screen active" data-screen="0">
-        <div class="photo-wrap">
-          <img src="Thobe.png" alt="Thơ Vũ bé" />
-        </div>
-        <div class="story-text">
-          <p>"Ngày xưa, có một cô bé cười to hơn cả tiếng TV..."</p>
-          <p>Và cũng chính tiếng cười đó làm cả phòng khám thú y sáng lên.</p>
-        </div>
-      </section>
+    <section class="page active" data-page="0">
+      <div class="page-photo">
+        <img src="Thobe.png" alt="Thơ Vũ bé" />
+      </div>
+      <div class="page-quote" id="quote0">
+        <p>Cứ ngỡ sẽ thành tay đua cừ khôi, nhưng mà...</p>
+        <p>Thế giới bớt đi một đứa trẻ ham chơi, nhưng lại có thêm một người thấu hiểu ngôn ngữ của những trái tim không tiếng nói.</p>
+      </div>
+    </section>
 
-      <section class="screen" data-screen="1">
-        <div class="story-text">
-          <p>"...Bây giờ thì vẫn quậy, nhưng là quậy theo kiểu rất có tâm với mọi sinh vật nhỏ bé."</p>
-        </div>
-        <div class="photo-wrap main-wrap">
-          <img src="Tho.jpg" alt="Thơ Vũ" />
-        </div>
-      </section>
+    <section class="page" data-page="1">
+      <div class="page-quote" id="quote1">
+        <p>Vẫn quậy, nhưng là quậy có tâm: cứu thú, cười to, sống thẳng.</p>
+      </div>
+      <div class="page-photo" id="photo1">
+        <img src="Tho.jpg" alt="Thơ Vũ" />
+      </div>
+    </section>
 
-      <section class="screen" data-screen="2">
-        <div class="letter">
-          <div class="letter-title">Gửi Thơ,</div>
-          <div class="letter-body">
-            <p>Chúc bạn năm mới tràn ngập niềm vui và tiếng cười (nhưng cười vừa thôi kẻo người ta tưởng có chuyện :)))).</p>
-            <p>Mong bạn ngày càng thành công hơn trên con đường đã chọn và đi một đường thẳng chứ đừng đánh lái hình chữ S nữa nhé :)))).</p>
-          </div>
+    <section class="page" data-page="2">
+      <div class="letter-box" id="letter2">
+        <div class="letter-title">Gửi Thơ,</div>
+        <div class="letter-body">
+          <p>Chúc bạn năm mới tràn ngập niềm vui và tiếng cười (nhưng cười vừa thôi kẻo người ta tưởng có chuyện :)))).</p>
+          <p>Mong bạn ngày càng thành công hơn trên con đường đã chọn và đi một đường thẳng chứ đừng đánh lái hình chữ S nữa nhé :)))).</p>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
 
-    <p class="footer" id="hint">Chạm vào thiệp để kể chuyện & bật nhạc.</p>
+    <p class="hint" id="hint">Chạm vào thiệp để bắt đầu</p>
   </div>
 
   <audio id="bg" src="Cross Over.mp3" preload="auto" loop></audio>
   <script>
-    var screens = document.querySelectorAll(".screen");
-    var card = document.getElementById("card");
-    var bg = document.getElementById("bg");
-    var btnPlay = document.getElementById("btnPlay");
-    var hint = document.getElementById("hint");
-    var current = 0;
-    var started = false;
-    var musicOn = false;
+    (function() {
+      var pages = document.querySelectorAll(".page");
+      var quote0 = document.getElementById("quote0");
+      var quote1 = document.getElementById("quote1");
+      var photo1 = document.getElementById("photo1");
+      var letter2 = document.getElementById("letter2");
+      var hint = document.getElementById("hint");
+      var card = document.getElementById("card");
+      var btnPlay = document.getElementById("btnPlay");
+      var bg = document.getElementById("bg");
+      var current = 0;
+      var started = false;
+      var musicOn = false;
 
-    function showScreen(i) {
-      current = Math.max(0, Math.min(i, screens.length - 1));
-      screens.forEach(function(s, j) { s.classList.toggle("active", j === current); });
-    }
+      function showPage(i) {
+        current = i;
+        pages.forEach(function(p, k) { p.classList.toggle("active", k === current); });
+      }
 
-    function ensureMusic() {
-      if (!bg || musicOn) return;
-      bg.play().then(function() { musicOn = true; }).catch(function() {});
-    }
+      function ensureMusic() {
+        if (!bg || musicOn) return;
+        bg.play().then(function() { musicOn = true; }).catch(function() {});
+      }
 
-    function startStory() {
-      if (started) return;
-      started = true;
-      if (hint) hint.textContent = "Đang kể chuyện...";
-      ensureMusic();
+      function runStory() {
+        if (started) return;
+        started = true;
+        if (hint) hint.textContent = "";
+        ensureMusic();
 
-      setTimeout(function() { showScreen(1); }, 4500);
-      setTimeout(function() {
-        showScreen(2);
-        if (hint) hint.textContent = "Chúc mừng năm mới & sinh nhật Thơ :3";
-      }, 9500);
-    }
+        quote0.classList.add("visible");
+        setTimeout(function() {
+          quote0.classList.remove("visible");
+          setTimeout(function() {
+            showPage(1);
+            quote1.classList.add("visible");
+            setTimeout(function() {
+              quote1.classList.remove("visible");
+              setTimeout(function() {
+                photo1.style.opacity = "1";
+                setTimeout(function() {
+                  showPage(2);
+                  letter2.classList.add("visible");
+                  if (hint) hint.textContent = "Chúc mừng năm mới & sinh nhật Thơ :3";
+                }, 2200);
+              }, 400);
+            }, 2800);
+          }, 500);
+        }, 3200);
+      }
 
-    card.addEventListener("click", startStory);
-    btnPlay.addEventListener("click", function(e) {
-      e.stopPropagation();
-      if (!bg) return;
-      if (!musicOn) { bg.play().then(function() { musicOn = true; }); }
-      else { bg.pause(); musicOn = false; }
-    });
+      card.addEventListener("click", function(e) {
+        if (e.target.closest(".play")) return;
+        runStory();
+      });
+
+      btnPlay.addEventListener("click", function(e) {
+        e.stopPropagation();
+        if (!bg) return;
+        if (musicOn) { bg.pause(); musicOn = false; }
+        else { bg.play().then(function() { musicOn = true; }); }
+      });
+
+      photo1.style.opacity = "0";
+      photo1.style.transition = "opacity 0.6s ease";
+    })();
   </script>
 </body>
 </html>
