@@ -929,7 +929,6 @@
         <section class="page page-group" data-page="1">
           <div class="page-top">
             <div>
-              <p class="label-date">ẢNH NHÓM</p>
               <p class="subtitle" style="max-width: 360px;">
                 Tuổi 23, không mong gì hơn ngoài việc chúng ta vẫn giữ được sự kết nối tự nhiên này, để dù thế giới ngoài kia có xoay vần hay bận rộn đến đâu, chỉ cần ngồi lại, chúng ta vẫn là những phiên bản thoải mái và chân thật nhất. Mong hành trình riêng của mỗi người đều sẽ trọn vẹn và rạng rỡ. Chúc mừng sinh nhật mọi người :3.
               </p>
@@ -1076,6 +1075,8 @@
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
 
+      ensureMusic();
+
       if (currentPage <= 2) {
         createRipple(x, y);
       } else if (currentPage === 3) {
@@ -1108,43 +1109,15 @@
       }
     }
 
-    function toggleMusic() {
+    function ensureMusic() {
       initAudio();
-      if (!bgSound) return;
-      if (!musicOn) {
-        bgSound.play();
-        musicOn = true;
-        if (musicLabel) musicLabel.textContent = "Tắt nhạc";
-      } else {
-        bgSound.fade(bgSound.volume(), 0, 400);
-        setTimeout(() => bgSound.stop(), 420);
-        musicOn = false;
-        if (musicLabel) musicLabel.textContent = "Bật nhạc";
-      }
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      initAudio();
-      if (bgSound && !musicOn) {
+      if (!bgSound || musicOn) return;
+      try {
         bgSound.play().then(() => {
           musicOn = true;
-          if (musicLabel) musicLabel.textContent = "Tắt nhạc";
-        }).catch(() => {
-          // nếu bị chặn autoplay thì click đầu tiên vẫn sẽ bật nhạc
-        });
-      }
-    });
-
-    window.addEventListener("click", () => {
-      if (!musicOn) {
-        initAudio();
-        if (bgSound && !musicOn) {
-          bgSound.play();
-          musicOn = true;
-          musicLabel.textContent = "Tắt nhạc";
-        }
-      }
-    }, { once: true });
+        }).catch(() => {});
+      } catch (e) {}
+    }
 
     function playSfx(type) {
       initAudio();
