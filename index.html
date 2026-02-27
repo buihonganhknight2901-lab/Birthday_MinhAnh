@@ -995,7 +995,7 @@
     </div>
   </div>
 
-  <audio id="rawBg" src="1.mp4" preload="auto" loop></audio>
+  <audio id="rawBg" src="Calm Chill Piano.mp3" preload="auto" loop></audio>
   <audio id="rawAlert" src="Alarm Sound Effect.mp4" preload="auto"></audio>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js" integrity="sha512-t11T0GqH+Vgy8c9wLudhmx1sjvgL0aZY8u64q2HhEeFGzR7Hsh4iPFrlCdnT0sy3TZ7KL05lA2WZdX2K9DJHOW==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -1095,7 +1095,7 @@
       if (!window.Howl) return;
       if (!bgSound) {
         bgSound = new Howl({
-          src: ["1.mp4"],
+          src: ["Calm Chill Piano.mp3"],
           loop: true,
           volume: 0.75,
         });
@@ -1114,12 +1114,12 @@
       if (!musicOn) {
         bgSound.play();
         musicOn = true;
-        musicLabel.textContent = "Tắt nhạc";
+        if (musicLabel) musicLabel.textContent = "Tắt nhạc";
       } else {
         bgSound.fade(bgSound.volume(), 0, 400);
         setTimeout(() => bgSound.stop(), 420);
         musicOn = false;
-        musicLabel.textContent = "Bật nhạc";
+        if (musicLabel) musicLabel.textContent = "Bật nhạc";
       }
     }
 
