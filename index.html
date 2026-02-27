@@ -369,6 +369,8 @@
 
     .media-main img {
       width: 100%;
+      max-height: 60vh;
+      height: auto;
       display: block;
       object-fit: cover;
     }
@@ -785,10 +787,12 @@
       border-radius: 14px;
       overflow: hidden;
       border: 1px solid rgba(148, 163, 184, 0.5);
+      aspect-ratio: 4 / 3;
     }
 
     .group-img-big img {
       width: 100%;
+      height: 100%;
       display: block;
       object-fit: cover;
     }
@@ -797,10 +801,12 @@
       border-radius: 14px;
       overflow: hidden;
       border: 1px solid rgba(148, 163, 184, 0.5);
+      aspect-ratio: 1 / 1;
     }
 
     .group-img-small img {
       width: 100%;
+      height: 100%;
       display: block;
       object-fit: cover;
     }
@@ -952,7 +958,7 @@
                   <p>Mong bạn luôn đủ bản lĩnh để bảo vệ sự kiêu hãnh vốn có, đủ tỉnh táo để khước từ những ồn ào không xứng đáng, và đủ sâu sắc để tận hưởng niềm vui theo cách riêng biệt nhất.</p>
                   <p>Thế giới có thể xoay vần, nhưng mong bạn mãi giữ được cái "chất" thú vị và ánh sáng tự thân của mình. Cảm ơn vì đã là một phần thanh xuân đầy cảm hứng của chúng tôi. Cứ an nhiên mà tỏa sáng nhé :3.</p>
                 </div>
-                <div class="letter-sign">— Tụi tớ, hội Aquarius Trio</div>
+               
               </div>
             </div>
           </div>
@@ -1191,6 +1197,10 @@
     }
 
     btnMusic?.addEventListener("click", () => {
+      toggleMusic();
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
       toggleMusic();
     });
 
