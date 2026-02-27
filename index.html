@@ -216,14 +216,14 @@
       justify-content: space-between;
       opacity: 0;
       pointer-events: none;
-      transform: translateX(10%);
+      transform: translateY(12px);
       transition: opacity 0.4s ease, transform 0.4s ease;
     }
 
     .page.active {
       opacity: 1;
       pointer-events: auto;
-      transform: translateX(0);
+      transform: translateY(0);
     }
 
     .page-intro {
@@ -352,6 +352,18 @@
       box-shadow: 0 10px 26px rgba(15, 23, 42, 0.9);
     }
 
+    .btn-primary.shake {
+      animation: btn-shake 0.22s linear;
+    }
+
+    @keyframes btn-shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-2px); }
+      50% { transform: translateX(2px); }
+      75% { transform: translateX(-1px); }
+      100% { transform: translateX(0); }
+    }
+
     .media-stack {
       position: relative;
       width: 100%;
@@ -389,6 +401,16 @@
       border: 2px solid rgba(148, 163, 184, 0.7);
       box-shadow: 0 10px 26px rgba(15, 23, 42, 0.8);
       aspect-ratio: 3 / 4;
+    }
+
+    .intro-avatar::before {
+      content: "";
+      position: absolute;
+      inset: -20%;
+      background: radial-gradient(circle at 50% 0%, rgba(147, 197, 253, 0.4), transparent 65%);
+      mix-blend-mode: screen;
+      opacity: 0.8;
+      pointer-events: none;
     }
 
     .intro-avatar img {
@@ -524,16 +546,9 @@
       100% { transform: translateX(-50%); }
     }
 
-    .ha-said {
-      font-family: "Space Grotesk", system-ui, sans-serif;
-      font-size: 0.9rem;
-      text-align: center;
-      line-height: 1.6;
-    }
-
-    .ha-said strong {
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+    @keyframes subtitleFade {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .fx-layer,
@@ -782,6 +797,7 @@
 
     .group-img-big,
     .group-img-small {
+      position: relative;
       border-radius: 14px;
       overflow: hidden;
       border: 1px solid rgba(148, 163, 184, 0.5);
@@ -794,6 +810,24 @@
       height: 100%;
       display: block;
       object-fit: cover;
+    }
+
+    .group-img-big::after,
+    .group-img-small::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to top, rgba(15, 23, 42, 0.45), transparent 55%),
+        repeating-linear-gradient(
+          0deg,
+          rgba(148, 163, 184, 0.06),
+          rgba(148, 163, 184, 0.06) 1px,
+          transparent 1px,
+          transparent 3px
+        );
+      mix-blend-mode: soft-light;
+      pointer-events: none;
     }
 
     .group-slot {
@@ -858,7 +892,7 @@
           <div class="page-top">
             <div>
               <p class="label-date">01.02 · 16.02 · 27.02</p>
-              <p class="subtitle" style="max-width: 360px;">
+              <p class="subtitle" style="max-width: 360px; animation: subtitleFade 0.8s ease-out 0.2s both;">
                 Happy Birthday — bật nhạc lên, nhìn 3 cái mặt quen quen này và chuẩn bị tinh thần nhận lời chúc nhóm.
               </p>
             </div>
@@ -1211,6 +1245,10 @@
     btnSpin?.addEventListener("click", () => {
       const sfx = btnSpin.getAttribute("data-sfx");
       playSfx(sfx);
+      if (btnSpin) {
+        btnSpin.classList.add("shake");
+        setTimeout(() => btnSpin.classList.remove("shake"), 220);
+      }
       spinWheel();
     });
 
