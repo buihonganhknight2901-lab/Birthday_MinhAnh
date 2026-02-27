@@ -85,7 +85,7 @@
       padding: 0 4px;
       font-weight: 500;
       opacity: 0;
-      transition: opacity 0.5s ease;
+      transition: opacity 0.75s ease;
     }
     .page-quote.visible { opacity: 1; }
     .page-quote p + p { margin-top: 0.35rem; }
@@ -131,13 +131,12 @@
       </div>
       <div class="page-quote" id="quote0">
         <p>Cứ ngỡ sẽ thành tay đua cừ khôi, nhưng mà...</p>
-        <p>Thế giới bớt đi một đứa trẻ ham chơi, nhưng lại có thêm một người thấu hiểu ngôn ngữ của những trái tim không tiếng nói.</p>
       </div>
     </section>
 
     <section class="page" data-page="1">
       <div class="page-quote" id="quote1">
-        <p>Vẫn quậy, nhưng là quậy có tâm: cứu thú, cười to, sống thẳng.</p>
+        <p>Thế giới bớt đi một đứa trẻ ham chơi, nhưng lại có thêm một người thấu hiểu ngôn ngữ của những trái tim không tiếng nói.</p>
       </div>
       <div class="page-photo" id="photo1">
         <img src="Tho.jpg" alt="Thơ Vũ" />
@@ -196,17 +195,14 @@
             showPage(1);
             quote1.classList.add("visible");
             setTimeout(function() {
-              quote1.classList.remove("visible");
+              photo1.style.opacity = "1";
               setTimeout(function() {
-                photo1.style.opacity = "1";
-                setTimeout(function() {
-                  showPage(2);
-                  letter2.classList.add("visible");
-                  if (hint) hint.textContent = "Chúc mừng năm mới & sinh nhật Thơ :3";
-                }, 2200);
-              }, 400);
-            }, 2800);
-          }, 500);
+                showPage(2);
+                letter2.classList.add("visible");
+                if (hint) hint.textContent = "Chúc mừng năm mới & sinh nhật Thơ :3";
+              }, 3500);
+            }, 900);
+          }, 600);
         }, 3200);
       }
 
@@ -223,7 +219,7 @@
       });
 
       photo1.style.opacity = "0";
-      photo1.style.transition = "opacity 0.6s ease";
+      photo1.style.transition = "opacity 1s ease";
     })();
   </script>
 </body>
