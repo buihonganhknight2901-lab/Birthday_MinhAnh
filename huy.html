@@ -151,7 +151,7 @@
     <p class="hint" id="hint">Chạm vào thiệp để bắt đầu</p>
   </div>
 
-  <audio id="bg" src="Mùa Viết Tình Ca (Mùa Viết Tình Ca OST).mp3" preload="auto" loop></audio>
+  <audio id="bg" preload="auto" loop></audio>
   <script>
     (function() {
       var pages = document.querySelectorAll(".page");
@@ -166,6 +166,17 @@
       var current = 0;
       var started = false;
       var musicOn = false;
+
+      var mainTrack = "Mùa Viết Tình Ca (Mùa Viết Tình Ca OST).mp3";
+      var fallbackTrack = "Cross Over.mp3";
+      bg.src = mainTrack;
+
+      bg.addEventListener("error", function() {
+        if (bg.src.indexOf(fallbackTrack) === -1) {
+          bg.src = fallbackTrack;
+          bg.load();
+        }
+      });
 
       function showPage(i) {
         current = i;
