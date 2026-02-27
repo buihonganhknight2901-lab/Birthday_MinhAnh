@@ -243,7 +243,7 @@
           <div class="letter-title">Gửi Hype MC của tụi tớ,</div>
           <div class="letter-body">
             <p>Chúc bạn tuổi 23 cầm mic ngày càng chắc, job tới tấp và luôn giữ được cái nhiệt huyết này..</p>
-            <p>Cảm ơn vì đã luôn khuấy động mọi cuộc vui của tụi tớ, từ những buổi chill nhẹ đến những hôm cháy banh nóc.</p>
+            <p>Cảm ơn vì đã luôn khuấy động mọi cuộc vui, từ những buổi chill nhẹ đến những hôm cháy banh nóc.</p>
             <p>Cháy hết mình bạn nhé =))). Khi nào mệt thì nhớ quay lại đây, tụi tớ vẫn ở đây ngồi nghe bạn kể chuyện.</p>
           </div>
         </div>
@@ -282,16 +282,8 @@
 
     function typeText(el, text, speed, done) {
       if (!el) return;
-      el.textContent = "";
-      let idx = 0;
-      const id = setInterval(() => {
-        el.textContent += text.charAt(idx);
-        idx += 1;
-        if (idx >= text.length) {
-          clearInterval(id);
-          if (typeof done === "function") done();
-        }
-      }, speed);
+      el.textContent = text;
+      if (typeof done === "function") done();
     }
 
     function startStory() {

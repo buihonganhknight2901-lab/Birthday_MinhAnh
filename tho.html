@@ -224,7 +224,7 @@
       <!-- Trang 3: Lời chúc -->
       <section class="screen" data-screen="2">
         <div class="letter">
-          <div class="letter-title">Gửi Thơ, hệ quậy vừa đủ,</div>
+          <div class="letter-title">Gửi Thơ,</div>
           <div class="letter-body">
             <p>Chúc bạn năm mới tràn ngập niềm vui và tiếng cười (nhưng cười vừa thôi kẻo người ta tưởng có chuyện :)))).</p>
             <p>Mong bạn ngày càng thành công hơn trên con đường đã chọn và đi một đường thẳng chứ đừng đánh lái hình chữ S nữa nhé :)))).</p>
@@ -265,16 +265,8 @@
 
     function typeText(el, text, speed, done) {
       if (!el) return;
-      el.textContent = "";
-      let idx = 0;
-      const id = setInterval(() => {
-        el.textContent += text.charAt(idx);
-        idx += 1;
-        if (idx >= text.length) {
-          clearInterval(id);
-          if (typeof done === "function") done();
-        }
-      }, speed);
+      el.textContent = text;
+      if (typeof done === "function") done();
     }
 
     function startStory() {
