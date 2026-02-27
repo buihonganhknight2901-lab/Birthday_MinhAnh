@@ -6,32 +6,25 @@
   <title>Thiệp Công Huy</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Space+Grotesk:wght@500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet" />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: "Inter", system-ui, sans-serif;
-      background:
-        radial-gradient(circle at 0% 0%, #a855f7, transparent 50%),
-        radial-gradient(circle at 100% 100%, #facc15, #020617 70%);
+      background: linear-gradient(165deg, #1e1b4b 0%, #312e81 40%, #020617 100%);
       color: #e5e7eb;
       min-height: 100vh;
       min-height: 100dvh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: env(safe-area-inset-top, 0) env(safe-area-inset-right, 0) env(safe-area-inset-bottom, 0) env(safe-area-inset-left, 0);
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
     }
 
     .card {
       width: 100%;
-      max-width: 100%;
-      height: 100%;
+      max-width: 380px;
+      margin: 0 auto;
       min-height: 100dvh;
-      padding: max(env(safe-area-inset-top), 1rem) max(env(safe-area-inset-right), 1rem) max(env(safe-area-inset-bottom), 1rem) max(env(safe-area-inset-left), 1rem);
-      background: radial-gradient(circle at top, #020617, #111827 60%, #1e1b4b 100%);
-      border: 1px solid rgba(250, 204, 21, 0.35);
+      padding: 8px 12px 12px;
       position: relative;
       overflow: hidden;
     }
@@ -40,162 +33,189 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 1rem;
+      margin-bottom: 8px;
     }
-
-    .tag { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: #facc15; }
+    .tag { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: #facc15; }
     .play {
-      font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
-      border-radius: 999px; padding: 0.4rem 0.9rem;
-      border: 1px solid rgba(250, 204, 21, 0.6);
-      background: #0f172a; cursor: pointer; color: #facc15;
-      display: inline-flex; align-items: center; gap: 0.35rem;
+      font-size: 0.65rem; letter-spacing: 0.05em;
+      border-radius: 999px; padding: 0.28rem 0.6rem;
+      border: 1px solid rgba(250, 204, 21, 0.5);
+      background: #0f172a; color: #facc15; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 0.25rem;
     }
-    .play-dot { width: 8px; height: 8px; border-radius: 999px; background: #22c55e; }
+    .play-dot { width: 5px; height: 5px; border-radius: 999px; background: #22c55e; }
 
-    .screens {
+    .page {
       position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      padding: 4.5rem 0 1rem;
-    }
-
-    .screen {
-      position: absolute;
-      inset: 4.5rem 0 1rem 0;
-      left: 0; right: 0;
+      top: 0; left: 0; right: 0;
+      padding-top: 2.5rem;
+      padding-bottom: 8px;
+      min-height: 100%;
       opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.5s ease;
+      visibility: hidden;
+      transition: opacity 0.35s ease, visibility 0.35s ease;
       display: flex;
       flex-direction: column;
-      gap: 1rem;
-      overflow-y: auto;
+      gap: 0.6rem;
     }
-    .screen.active { opacity: 1; pointer-events: auto; }
+    .page.active { opacity: 1; visibility: visible; position: relative; }
 
-    .photo-wrap {
-      flex: 1;
-      min-height: 0;
-      display: flex;
-      flex-direction: column;
-      border-radius: 20px;
+    .page-photo {
+      border-radius: 14px;
       overflow: hidden;
-      border: 2px solid rgba(250, 204, 21, 0.5);
-      box-shadow: 0 16px 48px rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(250, 204, 21, 0.4);
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.8);
+      flex-shrink: 0;
     }
-    .photo-wrap img {
+    .page-photo img {
       width: 100%;
       height: auto;
-      max-height: 55vh;
+      max-height: 42vh;
       object-fit: cover;
       display: block;
     }
-    .photo-wrap.main-wrap { border-color: rgba(250, 204, 21, 0.9); }
 
-    .story-text {
-      font-family: "Playfair Display", serif;
-      font-size: 1rem;
-      line-height: 1.65;
+    .page-quote {
+      font-family: "Space Grotesk", system-ui, sans-serif;
+      font-size: 0.88rem;
+      line-height: 1.6;
       text-align: center;
       color: #e5e7eb;
-      padding: 0 0.5rem;
+      padding: 0 4px;
+      font-weight: 500;
+      opacity: 0;
+      transition: opacity 0.75s ease;
     }
+    .page-quote.visible { opacity: 1; }
+    .page-quote p + p { margin-top: 0.35rem; }
 
-    .letter {
-      background: #020617;
+    .letter-box {
+      background: #0f172a;
       color: #e5e7eb;
-      border-radius: 18px;
-      padding: 1.25rem 1.2rem;
-      border: 1px solid rgba(139, 92, 246, 0.6);
-      box-shadow: 0 14px 40px rgba(15, 23, 42, 0.9);
+      border-radius: 14px;
+      padding: 0.9rem 1rem;
+      border: 1px solid rgba(139, 92, 246, 0.5);
+      box-shadow: 0 6px 24px rgba(15, 23, 42, 0.9);
+      opacity: 0;
+      transition: opacity 0.5s ease;
     }
-    .letter-title { font-family: "Space Grotesk", sans-serif; font-size: 0.95rem; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.75rem; color: #facc15; }
-    .letter-body { font-size: 0.95rem; line-height: 1.75; }
+    .letter-box.visible { opacity: 1; }
+    .letter-box .letter-title {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+      color: #facc15;
+    }
+    .letter-box .letter-body { font-size: 0.82rem; line-height: 1.75; }
 
-    .footer { position: absolute; bottom: 0.5rem; left: 0; right: 0; font-size: 0.78rem; opacity: 0.85; text-align: center; color: #94a3b8; }
+    .hint { font-size: 0.68rem; color: #94a3b8; text-align: center; margin-top: 4px; }
   </style>
 </head>
 <body>
   <div class="card" id="card">
     <div class="header">
-      <div class="tag">27.02 · Công Huy</div>
-      <button class="play" id="btnPlay"><span class="play-dot"></span><span>Cross Over</span></button>
+      <span class="tag">27.02 · Công Huy</span>
+      <button type="button" class="play" id="btnPlay"><span class="play-dot"></span> Nhạc</button>
     </div>
 
-    <div class="screens">
-      <section class="screen active" data-screen="0">
-        <div class="photo-wrap">
-          <img src="huybe.jpg" alt="Công Huy bé" />
-        </div>
-        <div class="story-text">
-          <p>"Ngày xưa, có một cậu nhóc giơ mic lên chỉ để hát nhép."</p>
-          <p>Ai ngờ vài năm sau lại đứng hype cả đám đông.</p>
-        </div>
-      </section>
+    <section class="page active" data-page="0">
+      <div class="page-photo">
+        <img src="huybe.jpg" alt="Công Huy bé" />
+      </div>
+      <div class="page-quote" id="quote0">
+        <p>Ngày xưa là cậu nhóc hướng nội chính hiệu.</p>
+        <p>Ai mà ngờ cái đứa ít nói năm ấy...</p>
+      </div>
+    </section>
 
-      <section class="screen" data-screen="1">
-        <div class="story-text">
-          <p>"Bây giờ mỗi khi bạn cầm mic, tụi tớ biết là buổi tối đó sẽ không còn yên tĩnh nữa."</p>
-        </div>
-        <div class="photo-wrap main-wrap">
-          <img src="huy.jpg" alt="Công Huy" />
-        </div>
-      </section>
+    <section class="page" data-page="1">
+      <div class="page-quote" id="quote1">
+        <p>Giờ lại là người đứng dưới ánh đèn sân khấu, mượn chiếc Microphone để truyền lửa cho đám đông và biến mọi khoảnh khắc bình thường trở nên bùng nổ.</p>
+      </div>
+      <div class="page-photo" id="photo1">
+        <img src="huy.jpg" alt="Công Huy" />
+      </div>
+    </section>
 
-      <section class="screen" data-screen="2">
-        <div class="letter">
-          <div class="letter-title">Gửi Công Huy,</div>
-          <div class="letter-body">
-            <p>Chúc bạn tuổi 23 cầm mic ngày càng chắc, job tới tấp và luôn giữ được cái nhiệt huyết này..</p>
-          </div>
+    <section class="page" data-page="2">
+      <div class="letter-box" id="letter2">
+        <div class="letter-title">Gửi Công Huy,</div>
+        <div class="letter-body">
+          <p>Chúc bạn tuổi 23 cầm mic ngày càng chắc, job tới tấp và luôn giữ được cái nhiệt huyết này..</p>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
 
-    <p class="footer" id="hint">Chạm vào thiệp để bật sân khấu & bật nhạc.</p>
+    <p class="hint" id="hint">Chạm vào thiệp để bắt đầu</p>
   </div>
 
-  <audio id="bg" src="Cross Over.mp3" preload="auto" loop></audio>
+  <audio id="bg" src="Mùa Viết Tình Ca (Mùa Viết Tình Ca OST).mp3" preload="auto" loop></audio>
   <script>
-    var screens = document.querySelectorAll(".screen");
-    var card = document.getElementById("card");
-    var bg = document.getElementById("bg");
-    var btnPlay = document.getElementById("btnPlay");
-    var hint = document.getElementById("hint");
-    var current = 0;
-    var started = false;
-    var musicOn = false;
+    (function() {
+      var pages = document.querySelectorAll(".page");
+      var quote0 = document.getElementById("quote0");
+      var quote1 = document.getElementById("quote1");
+      var photo1 = document.getElementById("photo1");
+      var letter2 = document.getElementById("letter2");
+      var hint = document.getElementById("hint");
+      var card = document.getElementById("card");
+      var btnPlay = document.getElementById("btnPlay");
+      var bg = document.getElementById("bg");
+      var current = 0;
+      var started = false;
+      var musicOn = false;
 
-    function showScreen(i) {
-      current = Math.max(0, Math.min(i, screens.length - 1));
-      screens.forEach(function(s, j) { s.classList.toggle("active", j === current); });
-    }
+      function showPage(i) {
+        current = i;
+        pages.forEach(function(p, k) { p.classList.toggle("active", k === current); });
+      }
 
-    function ensureMusic() {
-      if (!bg || musicOn) return;
-      bg.play().then(function() { musicOn = true; }).catch(function() {});
-    }
+      function ensureMusic() {
+        if (!bg || musicOn) return;
+        bg.play().then(function() { musicOn = true; }).catch(function() {});
+      }
 
-    function startStory() {
-      if (started) return;
-      started = true;
-      if (hint) hint.textContent = "Đang warm-up...";
-      ensureMusic();
+      function runStory() {
+        if (started) return;
+        started = true;
+        if (hint) hint.textContent = "";
+        ensureMusic();
 
-      setTimeout(function() { showScreen(1); }, 4500);
-      setTimeout(function() {
-        showScreen(2);
-        if (hint) hint.textContent = "Cháy hết mình nha, MC :3";
-      }, 9500);
-    }
+        quote0.classList.add("visible");
+        setTimeout(function() {
+          quote0.classList.remove("visible");
+          setTimeout(function() {
+            showPage(1);
+            quote1.classList.add("visible");
+            setTimeout(function() {
+              photo1.style.opacity = "1";
+              setTimeout(function() {
+                showPage(2);
+                letter2.classList.add("visible");
+                if (hint) hint.textContent = "Cháy hết mình nha, MC :3";
+              }, 3500);
+            }, 900);
+          }, 600);
+        }, 3200);
+      }
 
-    card.addEventListener("click", startStory);
-    btnPlay.addEventListener("click", function(e) {
-      e.stopPropagation();
-      if (!bg) return;
-      if (!musicOn) { bg.play().then(function() { musicOn = true; }); }
-      else { bg.pause(); musicOn = false; }
-    });
+      card.addEventListener("click", function(e) {
+        if (e.target.closest(".play")) return;
+        runStory();
+      });
+
+      btnPlay.addEventListener("click", function(e) {
+        e.stopPropagation();
+        if (!bg) return;
+        if (musicOn) { bg.pause(); musicOn = false; }
+        else { bg.play().then(function() { musicOn = true; }); }
+      });
+
+      photo1.style.opacity = "0";
+      photo1.style.transition = "opacity 1s ease";
+    })();
   </script>
 </body>
 </html>
