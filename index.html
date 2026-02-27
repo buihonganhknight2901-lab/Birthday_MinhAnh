@@ -6,7 +6,7 @@
   <title>Aquarius Trio ─ Thiệp Online</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&family=Playfair+Display:wght@500;600&family=Courier+Prime:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     * {
       margin: 0;
@@ -232,7 +232,10 @@
     }
 
     .page-ma {
-      background: radial-gradient(circle at 10% 0%, rgba(148, 163, 184, 0.4), transparent 55%), radial-gradient(circle at 80% 100%, rgba(147, 197, 253, 0.5), transparent 60%), var(--ma-bg);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(148, 163, 184, 0.35), transparent 55%),
+        radial-gradient(circle at 90% 100%, rgba(148, 197, 253, 0.45), transparent 60%),
+        var(--ma-bg);
       color: var(--ma-secondary);
     }
 
@@ -647,6 +650,124 @@
       margin-top: 0.4rem;
     }
 
+    .letter-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
+    }
+
+    .letter-card {
+      max-width: 340px;
+      width: 100%;
+      background: #fdf8f3;
+      border-radius: 18px;
+      padding: 24px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+      filter: contrast(0.95) brightness(1.05);
+      position: relative;
+    }
+
+    .letter-card::before {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border-radius: 12px;
+      border: 1px dashed rgba(148, 163, 184, 0.45);
+      pointer-events: none;
+    }
+
+    .letter-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .letter-header {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .wax-seal {
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #fecaca, #b91c1c);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fef2f2;
+      font-size: 0.9rem;
+      box-shadow: 0 6px 14px rgba(127, 29, 29, 0.7);
+    }
+
+    .letter-heading {
+      font-family: "Playfair Display", "Times New Roman", serif;
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #111827;
+    }
+
+    .letter-body {
+      font-family: "Playfair Display", "Times New Roman", serif;
+      font-size: 0.88rem;
+      line-height: 1.8;
+      color: #111827;
+      margin-bottom: 1.1rem;
+    }
+
+    .letter-body p + p {
+      margin-top: 0.7rem;
+    }
+
+    .letter-sign {
+      text-align: right;
+      font-family: "Courier Prime", "Courier New", monospace;
+      font-size: 0.8rem;
+      color: #374151;
+      margin-top: 0.5rem;
+    }
+
+    .letter-caption {
+      font-size: 0.78rem;
+      opacity: 0.8;
+      margin-top: 0.8rem;
+      text-align: center;
+    }
+
+    .group-strip {
+      margin-top: 1.4rem;
+    }
+
+    .group-strip-title {
+      font-size: 0.8rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      opacity: 0.85;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+
+    .group-strip-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.5rem;
+    }
+
+    .group-slot {
+      border-radius: 14px;
+      border: 1px dashed rgba(148, 163, 184, 0.7);
+      min-height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      opacity: 0.8;
+    }
+
     @media (max-width: 480px) {
       .page {
         padding-inline: 1rem;
@@ -711,7 +832,7 @@
               </h1>
             </div>
             <p class="subtitle" style="max-width: 360px;">
-              Bản tổng hợp <strong>Full Option</strong> cho chiếc thiệp online 3 trong 1. Một cú click-flow nhẹ nhàng, tấn công tinh thần lẫn ví tiền của cả team Bảo Bình.
+              Nhân sinh hữu hạn, mỹ cảnh vô biên. Gặp được người bạn tâm giao, chính là đoạn ký ức rực rỡ nhất mà chẳng cần quá nhiều lời.
             </p>
             <p class="note">
               Gợi ý: Đeo tai nghe, chỉnh dọc màn hình, để ngón cái sẵn ở 1/4 dưới màn. Nhiệm vụ chỉ là <strong>bấm tiếp</strong>.
@@ -727,18 +848,30 @@
 
         <section class="page page-ma" data-page="1">
           <div class="page-top">
-            <div class="media-stack">
-              <div class="media-main">
-                <img src="Manh.jpg" alt="Bạn 1 - hiện tại" />
+            <div class="letter-wrap">
+              <div class="letter-card">
+                <div class="letter-inner">
+                  <div class="letter-header">
+                    <div class="wax-seal">✉</div>
+                    <span class="letter-heading">Gửi Minh Anh,</span>
+                  </div>
+                  <div class="letter-body">
+                    <p>
+                      Tuổi 23, chúc bạn bước vào hành trình mới với tâm thế của một thiếu nữ tự tại, rạng rỡ theo cách mà một đóa hoa tự nở, chẳng cần đợi ai ngắm nhìn.
+                    </p>
+                    <p>
+                      Mong bạn luôn đủ bản lĩnh để bảo vệ sự kiêu hãnh vốn có, đủ tỉnh táo để khước từ những ồn ào không xứng đáng, và đủ sâu sắc để tận hưởng niềm vui theo cách riêng biệt nhất.
+                    </p>
+                    <p>
+                      Thế giới có thể xoay vần, nhưng mong bạn mãi giữ được cái "chất" thú vị và ánh sáng tự thân của mình. Cảm ơn vì đã là một phần thanh xuân đầy cảm hứng của chúng tôi. Cứ an nhiên mà tỏa sáng nhé :3.
+                    </p>
+                  </div>
+                  <div class="letter-sign">
+                    — Tụi tớ, hội Aquarius Trio
+                  </div>
+                </div>
               </div>
             </div>
-            <div>
-              <p class="profile-label">Bạn 1 · 01.02</p>
-              <p class="profile-name">Pearl Blue &amp; Silver</p>
-            </div>
-            <p class="subtitle">
-              Chúc bạn tuổi 23 luôn giữ vững phong độ xinh đẹp và sự tự tin này. Cảm ơn vì đã luôn là một người bạn thú vị. Cần điểm tựa hay cần đi quẩy, cứ gọi, chúng tôi luôn ở đây.
-            </p>
           </div>
           <div class="page-bottom">
             <button class="btn-primary" data-next="2" data-sfx="scratch">
@@ -825,8 +958,18 @@
                   <div class="gift-label" data-index="3">Một chầu trà sữa</div>
                 </div>
                 <p class="gift-result" id="giftResult">
-                  Mặc định hệ thống hơi thiên vị sự tiếc nuối, nhưng cứ bấm <strong>QUAY NGAY</strong> cho đủ nghi thức nhé :))).
+                  Mặc định hệ thống hơi thiên vị "chúc bạn may mắn lần sau", nhưng cứ bấm <strong>QUAY NGAY</strong> cho đủ nghi thức nhé :))).
                 </p>
+
+                <div class="group-strip">
+                  <p class="group-strip-title">Ảnh nhóm tụi mình</p>
+                  <div class="group-strip-grid">
+                    <div class="group-slot">Ảnh nhóm 1</div>
+                    <div class="group-slot">Ảnh nhóm 2</div>
+                    <div class="group-slot">Ảnh nhóm 3</div>
+                    <div class="group-slot">Ảnh nhóm 4</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
