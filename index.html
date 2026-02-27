@@ -731,9 +731,6 @@
               <div class="media-main">
                 <img src="Manh.jpg" alt="Bạn 1 - hiện tại" />
               </div>
-              <div class="media-badge">
-                <img src="older.jpg" alt="Bạn 1 - bé" />
-              </div>
             </div>
             <div>
               <p class="profile-label">Bạn 1 · 01.02</p>
@@ -766,7 +763,7 @@
               <p class="profile-name">Electric Orange</p>
             </div>
             <p class="subtitle">
-              Chúc bạn tuổi 23 quậy vừa đủ để ví chúng tôi còn thở, nhưng vẫn phải rạng rỡ như bây giờ. Cảm ơn vì đã luôn phá tan sự tĩnh lặng bằng tiếng cười. Chúng tôi luôn sẵn sàng tiếp chiêu mọi kế hoạch quậy phá của bạn.
+              Chúc bạn năm mới tràn ngập niềm vui và tiếng cười (nhưng cười vừa thôi kẻo người ta tưởng có chuyện :)))). Mong bạn ngày càng thành công hơn trên con đường đã chọn và đi một đường thẳng chứ đừng đánh lái hình chữ S nữa nhé :)))).
             </p>
           </div>
           <div class="page-bottom">
@@ -792,7 +789,7 @@
               <p class="profile-name">Deep Purple · MC Spotlight</p>
             </div>
             <p class="subtitle">
-              Chúc bạn tuổi 23 cầm mic ngày càng chắc, job tới tấp và luôn giữ được cái nhiệt huyết này. Cảm ơn vì đã luôn khuấy động mọi cuộc vui của chúng tôi. Cháy hết mình nhé!
+              Chúc bạn tuổi 23 cầm mic ngày càng chắc, job tới tấp và luôn giữ được cái nhiệt huyết này.. Cháy hết mình bạn nhé =))).
             </p>
           </div>
           <div class="page-bottom">
@@ -822,13 +819,13 @@
                   </div>
                 </div>
                 <div class="gift-labels" id="giftLabels">
-                  <div class="gift-label main" data-index="0">Một chầu trà sữa (Size S)</div>
-                  <div class="gift-label" data-index="1">Một lời chúc chân thành (Free)</div>
-                  <div class="gift-label" data-index="2">Cái ôm thắm thiết (Free)</div>
-                  <div class="gift-label" data-index="3">Ting ting (0.001%)</div>
+                  <div class="gift-label main" data-index="0">Chúc bạn may mắn lần sau =)))) (Các bạn đã là phần quà đặc biệt nhất của chúng tôi rồi...)</div>
+                  <div class="gift-label" data-index="1">Một tràng vỗ tay</div>
+                  <div class="gift-label" data-index="2">100k mỗi cháu</div>
+                  <div class="gift-label" data-index="3">Một chầu trà sữa</div>
                 </div>
                 <p class="gift-result" id="giftResult">
-                  Bấm <strong>QUAY NGAY</strong>, nếu trúng Ting ting thì vũ trụ thật sự ưu ái bạn.
+                  Mặc định hệ thống hơi thiên vị sự tiếc nuối, nhưng cứ bấm <strong>QUAY NGAY</strong> cho đủ nghi thức nhé :))).
                 </p>
               </div>
             </div>
@@ -1048,17 +1045,7 @@
       if (!giftWheel || !giftResult) return;
       btnSpin.disabled = true;
 
-      const weights = [0.48, 0.28, 0.23, 0.01];
-      const rnd = Math.random();
-      let acc = 0;
-      let selectedIndex = 0;
-      for (let i = 0; i < weights.length; i++) {
-        acc += weights[i];
-        if (rnd <= acc) {
-          selectedIndex = i;
-          break;
-        }
-      }
+      const selectedIndex = 0;
 
       const spins = 5;
       const segment = 360 / 4;
